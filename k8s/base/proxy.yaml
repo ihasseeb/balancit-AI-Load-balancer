@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: proxy
+  namespace: balancit
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: proxy
+  template:
+    metadata:
+      labels:
+        app: proxy
+    spec:
+      containers:
+        - name: proxy
+          image: proxy:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080
+              name: http
+          env:
+            - name: BALANCIT_PROXY_MODE
+              value: "ml"
+            - name: BALANCIT_REDIS_HOST
+              value: "redis.balancit"
+            - name: BALANCIT_REDIS_PORT
+              value: "6379"
+          resources:
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: proxy
+  namespace: balancit
+  labels:
+    app: proxy
+spec:
+  selector:
+    app: proxy
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080

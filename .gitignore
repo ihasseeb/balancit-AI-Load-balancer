@@ -1,0 +1,106 @@
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+.Python
+build/
+dist/
+*.whl
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+.python-version
+
+# uv
+uv.lock
+.uv/
+
+# pip / poetry
+pip-log.txt
+pip-delete-this-directory.txt
+poetry.lock
+
+# Testing
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+coverage.xml
+*.cover
+
+# Type checkers
+.mypy_cache/
+.pyright/
+.pytype/
+.ruff_cache/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+*.tar
+*.tar.gz
+.docker/
+
+kubeconfig
+*.kubeconfig
+charts/
+*.tgz
+.helm/
+
+# Experiment outputs (raw data files, generated plots from runs)
+experiments/raw/
+experiments/*.csv
+experiments/plots/*.png
+experiments/plots/*.svg
+# but keep plots that go into the paper:
+!experiments/plots/final/
+
+# Scratch directory should be tracked, but not the venv inside it
+scratch/.venv/
+scratch/__pycache__/
+
+# Logs
+*.log
+logs/
+
+# Local secrets (never commit)
+.env
+.env.local
+*.secret
+secrets/
+
+# Temporary files
+*.tmp
+*.bak
+.cache/
+
+
+# gitignored from the directory
+DEVLOG.md
+docs/LIMITATIONS.md
+integration-test.md
+plots/
+plots_20min/
+plots_20min_rate_limit_increased/
+results/
+results_20mins(old)_and_rate_limit_fixed/
+results_scratch/
+
+ml/INTEGRATION_TEST.md
+ml/tests/

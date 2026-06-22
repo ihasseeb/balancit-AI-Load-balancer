@@ -1,0 +1,39 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: balancit-services
+  namespace: monitoring
+  labels:
+    release: prometheus
+spec:
+  namespaceSelector:
+    matchNames:
+      - balancit
+  selector:
+    matchExpressions:
+      - key: app
+        operator: In
+        values: [service-a, service-b, ml-service]
+  podMetricsEndpoints:
+    - targetPort: 8000
+      path: /metrics
+      interval: 5s
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: balancit-proxy
+  namespace: monitoring
+  labels:
+    release: prometheus
+spec:
+  namespaceSelector:
+    matchNames:
+      - balancit
+  selector:
+    matchLabels:
+      app: proxy
+  podMetricsEndpoints:
+    - targetPort: 8080
+      path: /metrics
+      interval: 5s

@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ml-service
+  namespace: balancit
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ml-service
+  template:
+    metadata:
+      labels:
+        app: ml-service
+    spec:
+      containers:
+        - name: ml-service
+          image: ml-service:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8000
+              name: metrics
+          resources:
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ml-service
+  namespace: balancit
+  labels:
+    app: ml-service
+spec:
+  selector:
+    app: ml-service
+  ports:
+    - name: metrics
+      port: 8000
+      targetPort: 8000

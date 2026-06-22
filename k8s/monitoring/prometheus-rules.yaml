@@ -1,0 +1,15 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: balancit-rules
+  namespace: monitoring
+  labels:
+    release: prometheus
+spec:
+  groups:
+    - name: balancit.rules
+      interval: 5s
+      rules:
+        - record: ml_service_signal
+          expr: |
+            sum by (service) (ml_client_signal)
